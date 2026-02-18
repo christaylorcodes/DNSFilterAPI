@@ -1,0 +1,9 @@
+output/
+*Scratch*.ps1
+*.psm1.bak
+.vscode/
+.vs/
+.idea/
+.claude/
+.DS_Store
+Thumbs.db

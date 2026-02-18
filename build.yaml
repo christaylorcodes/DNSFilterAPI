@@ -1,0 +1,120 @@
+---
+####################################################
+#          ModuleBuilder Configuration             #
+####################################################
+
+SourcePath: source
+CopyPaths: []
+Prefix: prefix.ps1
+Suffix: suffix.ps1
+Encoding: UTF8
+VersionedOutputDirectory: true
+
+####################################################
+#              Pipeline Configuration              #
+####################################################
+
+BuildWorkflow:
+  '.':
+    - build
+    - test
+
+  build:
+    - Clean
+    - Build_ModuleOutput_ModuleBuilder
+    - Create_changelog_release_output
+
+  pack:
+    - build
+    - package_module_nupkg
+
+  test:
+    - build
+    - Pester_Tests_Stop_On_Fail
+    - Pester_if_Code_Coverage_Under_Threshold
+
+  format:
+    - Format_Source_Code
+
+  lint:
+    - Check_Source_Formatting
+    - Invoke_PSScriptAnalyzer
+
+  publish:
+    - publish_module_to_gallery
+
+  docs:
+    - Build_Module_ModuleBuilder
+    - Update_markdown_help_source
+    - Generate_MAML_from_markdown_help_source
+
+####################################################
+#       Sampler Pipeline Configuration             #
+####################################################
+
+Sampler:
+  DefaultOutputDirectory: 'output'
+
+ModuleBuildTasks:
+  Sampler:
+    - '*.build.Sampler.ib.tasks'
+  Sampler.GitHubTasks:
+    - '*.ib.tasks'
+  ModuleBuilder:
+    - '*.build.ModuleBuilder.ib.tasks'
+
+TaskHeader: |
+  param($Path)
+  ""
+  "=" * 79
+  Write-Build Cyan "`t`t`t$($Task.Name.replace("_"," ").ToUpper())"
+  Write-Build DarkGray  "$(Get-BuildSynopsis $Task)"
+  "-" * 79
+  Write-Build DarkGray "  $Path"
+  Write-Build DarkGray "  $($Task.InvocationInfo.ScriptName):$($Task.InvocationInfo.ScriptLineNumber)"
+  ""
+
+####################################################
+#       PESTER Configuration                       #
+####################################################
+
+Pester:
+  Script:
+    - tests/Unit/Module.Tests.ps1
+  ExcludeTag:
+    - helpQuality
+    - Integration
+  Tag:
+  OutputFile: output/testResults/testResults.xml
+  OutputFormat: NUnitXml
+  PassThru: true
+
+####################################################
+#       PlatyPS / Documentation Configuration      #
+####################################################
+
+HelpSourceFolder: docs
+HelpCultureInfo: en-US
+CopyHelpMamlToBuiltModuleBase: true
+
+####################################################
+#       PSScriptAnalyzer Configuration            #
+####################################################
+
+PSScriptAnalyzer:
+  Script: source
+  Settings: PSScriptAnalyzerSettings.psd1
+  ExcludeRule:
+  IncludeRule:
+
+ChangelogConfig:
+  UpdateChangelogOnPrerelease: false
+  FilterByPath:
+    - source/
+
+GitHubConfig:
+  GitHubFilesToAdd:
+    - 'CHANGELOG.md'
+  GitHubConfigUserName: christaylorcodes
+  GitHubConfigUserEmail: chris@yourconnectedtech.com
+  UpdateChangelogOnPrerelease: false
