@@ -17,7 +17,7 @@ PowerShell module for the DNSFilter REST API.
 [![CI](https://github.com/christaylorcodes/DNSFilterAPI/actions/workflows/ci.yml/badge.svg)](https://github.com/christaylorcodes/DNSFilterAPI/actions/workflows/ci.yml)
 [![PS Gallery](https://img.shields.io/powershellgallery/v/DNSFilterAPI?label=PS%20Gallery&logo=powershell&logoColor=white)](https://www.powershellgallery.com/packages/DNSFilterAPI)
 [![Downloads](https://img.shields.io/powershellgallery/dt/DNSFilterAPI?label=Downloads&logo=powershell&logoColor=white)](https://www.powershellgallery.com/packages/DNSFilterAPI)
-[![License](https://img.shields.io/github/license/christaylorcodes/DNSFilterAPI)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/christaylorcodes/GitHub-Template/blob/main/DONATE.md)
 
 </div>
