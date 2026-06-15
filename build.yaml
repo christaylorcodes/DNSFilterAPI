@@ -79,7 +79,7 @@ TaskHeader: |
 ####################################################
 
 Pester:
-  Script:
+  Path:
     - Tests
   ExcludeTag:
     - Integration
