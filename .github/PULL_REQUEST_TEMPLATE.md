@@ -1,0 +1,48 @@
+# Pull Request
+
+## Description
+
+<!-- What does this PR do? Brief summary of the changes. -->
+
+## Related Issue
+
+<!-- Reference the issue: Fixes #123 -->
+
+## Type of Change
+
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Breaking change
+- [ ] Documentation
+- [ ] Refactoring / tests
+
+## Changes Made
+
+<!-- Bullet list of what changed -->
+
+-
+-
+
+## Testing
+
+<!-- How did you verify? Paste test-local.ps1 output or describe. -->
+
+- [ ] `./Tests/test-local.ps1` passes (build + analyze + test)
+
+## Checklist
+
+- [ ] Code follows project conventions ([CLAUDE.md](../CLAUDE.md))
+- [ ] Tests cover new/changed behavior
+- [ ] PSScriptAnalyzer reports zero errors
+- [ ] CHANGELOG.md updated (if applicable)
+- [ ] Documentation updated (if applicable)
+
+## Screenshots
+
+<!-- If applicable, add screenshots to help explain your changes -->
+
+## AI Contribution
+
+<!-- Only fill this if AI-generated -->
+
+- [ ] AI-assisted (tool: ___, issue: #___)

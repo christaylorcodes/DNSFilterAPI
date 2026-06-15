@@ -2,7 +2,7 @@
 
 task Format_Source_Code {
     $SourcePath = Join-Path $BuildRoot 'source'
-    $SettingsFile = Join-Path $BuildRoot 'PSScriptAnalyzerSettings.psd1'
+    $SettingsFile = Join-Path $BuildRoot '.PSScriptAnalyzerSettings.psd1'
 
     if (-not (Test-Path $SourcePath)) {
         Write-Build Yellow "Source path not found: $SourcePath"
@@ -48,7 +48,7 @@ task Format_Source_Code {
 
 task Check_Source_Formatting {
     $SourcePath = Join-Path $BuildRoot 'source'
-    $SettingsFile = Join-Path $BuildRoot 'PSScriptAnalyzerSettings.psd1'
+    $SettingsFile = Join-Path $BuildRoot '.PSScriptAnalyzerSettings.psd1'
 
     if (-not (Test-Path $SourcePath)) {
         Write-Build Yellow "Source path not found: $SourcePath"
@@ -93,7 +93,7 @@ task Check_Source_Formatting {
 
 task Invoke_PSScriptAnalyzer {
     $SourcePath = Join-Path $BuildRoot 'source'
-    $SettingsFile = Join-Path $BuildRoot 'PSScriptAnalyzerSettings.psd1'
+    $SettingsFile = Join-Path $BuildRoot '.PSScriptAnalyzerSettings.psd1'
 
     if (-not (Test-Path $SourcePath)) {
         Write-Build Yellow "Source path not found: $SourcePath"

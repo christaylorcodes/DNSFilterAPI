@@ -204,7 +204,7 @@ jobs:
           $env:PSModulePath = "$(Resolve-Path output/RequiredModules)" + [IO.Path]::PathSeparator + $env:PSModulePath
           Import-Module PSScriptAnalyzer
 
-          $SettingsFile = 'PSScriptAnalyzerSettings.psd1'
+          $SettingsFile = '.PSScriptAnalyzerSettings.psd1'
           $AnalyzerParams = @{
               Path      = 'source'
               Recurse   = $true

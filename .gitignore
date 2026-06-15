@@ -1,7 +1,9 @@
 output/
 *Scratch*.ps1
 *.psm1.bak
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 .vs/
 .idea/
 .claude/

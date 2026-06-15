@@ -7,15 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- Build system using Sampler/ModuleBuilder with Invoke-Build
-- Pester 5 unit tests for module loading, exports, and function standards
-- PSScriptAnalyzer integration via build tasks (format, lint)
-- GitHub Actions CI/CD pipeline (build, test, lint, analyze, publish)
-- PR validation workflow (changelog and version checks)
-
-## [0.1.0] - 2025-01-01
+## [1.0.0] - 2026-06-15
 
 ### Added
 
@@ -27,5 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Applications: Get
 - Billing: Get
 - Invoices: Get
-- Session management with thread-safe `-Session` parameter pattern
-- TLS 1.2 enforcement via prefix.ps1
+- Session management with a thread-safe `-Session` parameter pattern for `ForEach-Object -Parallel`
+- TLS 1.2 enforcement via `prefix.ps1`
+- Build system using Sampler/ModuleBuilder with Invoke-Build
+- Request-mocked Pester 5 unit tests per resource, plus module loading and function-standard tests
+- PSScriptAnalyzer integration via build tasks (format, lint) using the shared strict ruleset
+- GitHub Actions CI/CD pipeline (build, test, lint, analyze, publish on tag)
+- PR validation workflow (changelog and version checks)
+- Documentation and repo health files: README, MIT LICENSE, and GitHub community files
+  (CODE_OF_CONDUCT, CONTRIBUTING, SECURITY, issue and pull request templates)

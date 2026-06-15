@@ -2,11 +2,11 @@
 
 ## Project Scaffolding
 
-- [ ] Add `README.md` with quick start, function list, examples
-- [ ] Add `LICENSE` (MIT)
-- [ ] Add `CONTRIBUTING.md` with build/test instructions
+- [x] Add `README.md` with quick start, function list, examples
+- [x] Add `LICENSE` (MIT)
+- [x] Add `CONTRIBUTING.md` (`.github/CONTRIBUTING.md`) with build/test instructions
 - [x] Add `CHANGELOG.md`
-- [ ] Add `.github/` templates (issue, PR)
+- [x] Add `.github/` templates (issue, PR) plus CODE_OF_CONDUCT and SECURITY
 
 ## Build System
 
@@ -20,9 +20,9 @@
 
 ## Testing
 
-- [x] Add `tests/Unit/Module.Tests.ps1` (module loads, exports correct functions, no missing help)
-- [ ] Add unit tests per resource category with mocked `Invoke-DNSFilterRequest`
-- [ ] Add `tests/Integration/` for live API tests (tagged, skipped by default)
+- [x] Add module/standards tests (`Tests/Unit/Module/DNSFilterAPI.Module.Tests.ps1`)
+- [x] Add unit tests per resource category with mocked `Invoke-DNSFilterRequest` (`Tests/Unit/Public/`)
+- [ ] Add `Tests/Integration/` for live API tests (tagged, skipped by default)
 - [ ] Add code coverage target (80%+)
 
 ## Documentation
@@ -127,6 +127,8 @@
 
 ## Publishing
 
-- [ ] Run `Promote-Project.ps1` readiness scan
-- [ ] Create GitHub repo at `christaylorcodes/DNSFilterAPI`
-- [ ] Publish v1.0.0 to PowerShell Gallery
+- [x] Create GitHub repo at `christaylorcodes/DNSFilterAPI`
+- [ ] Record a demo GIF, add as `Media/Demo.gif`, and restore it to the README header
+- [ ] Configure `PSGALLERY_API_KEY` repository secret
+- [ ] Run `./Tests/test-local.ps1` final readiness check (build + analyze + test)
+- [ ] Publish v1.0.0 to PowerShell Gallery (push the `v1.0.0` tag)

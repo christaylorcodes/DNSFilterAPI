@@ -4,19 +4,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-PowerShell module (v0.1.0) wrapping the DNSFilter REST API. Targets PowerShell 5.0+. No build system or test framework yet — see `todo.md` for the full roadmap.
+PowerShell module (v1.0.0) wrapping the DNSFilter REST API. Targets PowerShell 5.1+. Built, tested, linted, and published via a Sampler/ModuleBuilder + Invoke-Build pipeline; see `todo.md` for the roadmap.
 
 ## Commands
 
 ```powershell
-# Lint with PSScriptAnalyzer (settings in PSScriptAnalyzerSettings.psd1)
-Invoke-ScriptAnalyzer -Path ./source -Recurse -Settings ./PSScriptAnalyzerSettings.psd1
+# First time: resolve build dependencies into output/RequiredModules
+./build.ps1 -ResolveDependency -Tasks noop
 
-# Import the module locally for testing
-Import-Module ./source/DNSFilterAPI.psd1 -Force
+# Build the module into output/, run tests, or lint
+./build.ps1 -Tasks build
+./build.ps1 -Tasks test
+./build.ps1 -Tasks format   # auto-format source
+./build.ps1 -Tasks lint     # check formatting + PSScriptAnalyzer
+
+# All-in-one local pre-push validation (build + analyze + test)
+./Tests/test-local.ps1
 ```
 
-No build, test, or CI pipeline exists yet.
+CI/CD (`.github/workflows/ci.yml`) runs the same build → test → lint → analyze steps and
+publishes to the PowerShell Gallery when a `v*.*.*` tag is pushed — the tag **must match** the
+manifest `ModuleVersion`. Tests require PowerShell 7+, so run the build under `pwsh`.
 
 ## Architecture
 
@@ -27,7 +35,7 @@ No build, test, or CI pipeline exists yet.
 2. `Private/*.ps1` — internal helpers
 3. `Public/*/*.ps1` — exported functions (one file per function, grouped by resource subfolder)
 
-Exported functions are explicitly listed in `source/DNSFilterAPI.psd1` (`FunctionsToExport`).
+Exported functions are explicitly listed in `source/DNSFilterAPI.psd1` (`FunctionsToExport`). At build time ModuleBuilder concatenates `prefix.ps1`, the function files, and `suffix.ps1` into a single module under `output/`; tests and published releases load that built module (not the source files directly).
 
 ### Request Pipeline
 
@@ -55,13 +63,17 @@ $orgIds | ForEach-Object -Parallel {
 
 **New/Update functions** map PascalCase parameters to snake_case API fields via a `$ParamMap` hashtable, iterate `$PSBoundParameters`, and wrap the payload under the resource key (e.g., `@{ network = $Network }`).
 
-**Destructive functions** (New, Update, Remove) declare `[CmdletBinding(SupportsShouldProcess)]` for `-WhatIf`/`-Confirm` support.
+**Destructive functions** (New, Update, Remove, Set) declare `[CmdletBinding(SupportsShouldProcess)]` for `-WhatIf`/`-Confirm` support; Remove functions add `ConfirmImpact = 'High'`.
 
 ## Code Style (PSScriptAnalyzer)
 
-- 4-space indentation, open brace on same line, no assignment alignment
-- `PSUseSingularNouns` rule is excluded (resource names like `Get-DNSFilterIPAddresses` are allowed)
-- Pipeline indentation increases for first pipeline component
+Settings live in `.PSScriptAnalyzerSettings.psd1` (shared strict ruleset). Run `./build.ps1 -Tasks format` to auto-fix most style issues before committing.
+
+- 4-space indentation, open brace on same line (`PSPlaceOpenBrace`)
+- Assignment statements **are** aligned (`PSAlignAssignmentStatement`)
+- Max line length 120 (`PSAvoidLongLines`); use single quotes for constant strings (`PSAvoidUsingDoubleQuotesForConstantString`)
+- Pipeline indentation increases for the first pipeline component
+- Function nouns are singular (e.g. `Get-DNSFilterIPAddress`)
 
 ## Adding a New Function
 
@@ -73,3 +85,4 @@ $orgIds | ForEach-Object -Parallel {
 6. Add the function name to `FunctionsToExport` in `source/DNSFilterAPI.psd1`
 7. API base path convention: `/v1/<resource_name_snake_case>`
 8. Close braces before `else`/`elseif` go on the same line: `} else {` (PSPlaceCloseBrace rule)
+9. Add request-mocked Pester tests under `Tests/Unit/Public/<Resource>.Tests.ps1`, mocking `Invoke-DNSFilterRequest` with `-ModuleName DNSFilterAPI` and asserting the Endpoint/Method/Body mapping

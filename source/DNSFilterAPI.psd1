@@ -1,6 +1,6 @@
 @{
     RootModule           = 'DNSFilterAPI.psm1'
-    ModuleVersion        = '0.1.0'
+    ModuleVersion        = '1.0.0'
     GUID                 = 'be25126d-f69e-420b-88e2-239e49446312'
 
     Author               = 'Chris Taylor'
@@ -9,7 +9,8 @@
 
     Description          = 'PowerShell module for interacting with the DNSFilter REST API. Provides functions to manage organizations, networks, policies, IP addresses, user agents, and more.'
 
-    PowerShellVersion    = '5.0'
+    PowerShellVersion    = '5.1'
+    CompatiblePSEditions = @('Desktop', 'Core')
 
     FunctionsToExport    = @(
         # Connection
@@ -66,8 +67,9 @@
             Tags         = @('DNSFilter', 'DNS', 'Security', 'API', 'ChrisTaylorCodes')
             ProjectUri   = 'https://github.com/christaylorcodes/DNSFilterAPI'
             LicenseUri   = 'https://github.com/christaylorcodes/DNSFilterAPI/blob/main/LICENSE'
+            IconUri      = 'https://raw.githubusercontent.com/christaylorcodes/DNSFilterAPI/main/Media/Icon.png'
             ReleaseNotes = @'
-## Version 0.1.0
+## Version 1.0.0
 
 ### Initial Release
 - Organizations: Get, New, Update, Remove

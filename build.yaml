@@ -80,9 +80,8 @@ TaskHeader: |
 
 Pester:
   Script:
-    - tests/Unit/Module.Tests.ps1
+    - Tests
   ExcludeTag:
-    - helpQuality
     - Integration
   Tag:
   OutputFile: output/testResults/testResults.xml
@@ -103,7 +102,7 @@ CopyHelpMamlToBuiltModuleBase: true
 
 PSScriptAnalyzer:
   Script: source
-  Settings: PSScriptAnalyzerSettings.psd1
+  Settings: .PSScriptAnalyzerSettings.psd1
   ExcludeRule:
   IncludeRule:
 
