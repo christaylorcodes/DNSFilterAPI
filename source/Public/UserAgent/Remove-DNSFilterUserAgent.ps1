@@ -4,10 +4,10 @@ function Remove-DNSFilterUserAgent {
         Removes a DNSFilter user agent.
 
     .PARAMETER ID
-        The ID of the user agent to remove.
+        The ID (GUID) of the user agent to remove.
 
     .EXAMPLE
-        Remove-DNSFilterUserAgent -ID 123
+        Remove-DNSFilterUserAgent -ID '210bbb7e-a08d-4d8c-8de8-9d47d6968f7e'
 
     .EXAMPLE
         Get-DNSFilterUserAgent -OrganizationId 456 | ForEach-Object { Remove-DNSFilterUserAgent -ID $_.id }
@@ -19,7 +19,7 @@ function Remove-DNSFilterUserAgent {
     [OutputType([PSCustomObject])]
     param(
         [Parameter(Mandatory)]
-        [int]$ID,
+        [string]$ID,
 
         [hashtable]$Session
     )

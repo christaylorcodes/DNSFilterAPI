@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `Get-DNSFilterUserAgent` and `Remove-DNSFilterUserAgent`: `-ID` was typed `[int]`, but the DNSFilter
+  API returns user agent IDs as GUID strings (unlike organization/network IDs, which are numeric).
+  This caused every `Remove-DNSFilterUserAgent -ID $Agent.id` call to fail parameter binding before
+  reaching the API. `-ID` is now `[string]` on both functions.
+
 ## [1.0.0] - 2026-06-15
 
 ### Added

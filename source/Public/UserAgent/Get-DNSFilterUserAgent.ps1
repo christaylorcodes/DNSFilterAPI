@@ -4,7 +4,7 @@ function Get-DNSFilterUserAgent {
         Retrieves DNSFilter user agents.
 
     .PARAMETER ID
-        The ID of a specific user agent to retrieve.
+        The ID (GUID) of a specific user agent to retrieve.
 
     .PARAMETER All
         Return all user agents.
@@ -19,7 +19,7 @@ function Get-DNSFilterUserAgent {
         Get-DNSFilterUserAgent
 
     .EXAMPLE
-        Get-DNSFilterUserAgent -ID 123
+        Get-DNSFilterUserAgent -ID '210bbb7e-a08d-4d8c-8de8-9d47d6968f7e'
 
     .EXAMPLE
         Get-DNSFilterUserAgent -OrganizationId 456
@@ -31,7 +31,7 @@ function Get-DNSFilterUserAgent {
     [OutputType([PSCustomObject])]
     param(
         [Parameter(ParameterSetName = 'ID')]
-        [int]$ID,
+        [string]$ID,
 
         [Parameter(ParameterSetName = 'All')]
         [switch]$All,

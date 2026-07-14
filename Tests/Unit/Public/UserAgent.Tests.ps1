@@ -19,9 +19,9 @@ Describe 'Get-DNSFilterUserAgent' -Tag 'Unit', 'Public' {
     }
 
     It 'Requests a specific user agent by ID' {
-        Get-DNSFilterUserAgent -ID 123
+        Get-DNSFilterUserAgent -ID '210bbb7e-a08d-4d8c-8de8-9d47d6968f7e'
         Should -Invoke Invoke-DNSFilterRequest -ModuleName 'DNSFilterAPI' -Times 1 -Exactly -ParameterFilter {
-            $Endpoint -eq '/v1/user_agents/123'
+            $Endpoint -eq '/v1/user_agents/210bbb7e-a08d-4d8c-8de8-9d47d6968f7e'
         }
     }
 
@@ -37,9 +37,9 @@ Describe 'Remove-DNSFilterUserAgent' -Tag 'Unit', 'Public' {
     BeforeEach { Mock -CommandName Invoke-DNSFilterRequest -ModuleName 'DNSFilterAPI' }
 
     It 'DELETEs /v1/user_agents/<id>' {
-        Remove-DNSFilterUserAgent -ID 123 -Confirm:$false
+        Remove-DNSFilterUserAgent -ID '210bbb7e-a08d-4d8c-8de8-9d47d6968f7e' -Confirm:$false
         Should -Invoke Invoke-DNSFilterRequest -ModuleName 'DNSFilterAPI' -Times 1 -Exactly -ParameterFilter {
-            $Endpoint -eq '/v1/user_agents/123' -and $Method -eq 'Delete'
+            $Endpoint -eq '/v1/user_agents/210bbb7e-a08d-4d8c-8de8-9d47d6968f7e' -and $Method -eq 'Delete'
         }
     }
 }
